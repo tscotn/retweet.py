@@ -8,7 +8,6 @@ oauth_token_secret = "YOUR_OAUTH_TOKEN_SECRET"
 
 twitter = Twython(app_key, app_secret, oauth_token, oauth_token_secret)
 
-message_to_tweet = sys.argv[1]
 keyboard = {"A":1283528365832577026,
             "B":1283528366432321546,
             "C":1283528366994477058,
@@ -40,6 +39,11 @@ keyboard = {"A":1283528365832577026,
             "?":1283529695552835585,
             "!":1283529696135786503}
 
+message_to_tweet = sys.argv[1]
+tweeted_letters = []
+
 for letter in message_to_tweet:
-    if letter.upper() in keyboard.keys():
-        twitter.retweet(id = keyboard.get(letter.upper()))
+    letter = letter.upper()
+    if letter in keyboard.keys() and letter not in tweeted_letters:
+        twitter.retweet(id = keyboard.get(letter))
+        tweeted_letters.append(letter)
